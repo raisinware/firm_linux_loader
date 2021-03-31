@@ -58,6 +58,12 @@ _start:
 	@ Clear exclusive records
 	clrex
 
+	@ Get the CPUID
+	@ Branch to secondary boot if its not CPU0
+	mrc p15, 0, r0, c0, c0, 5
+	ands r0, r0, #3
+	bne smp_boot
+
 	@ Wait until ARM9 tells Linux address...
 	ldr r0, =SYNC_ADDR
 	mov r1, #0
@@ -77,6 +83,15 @@ wait_arm9:
 	@ Invalidate SCU ways
 	ldr r1, =0xFF
 	str r1, [r0, #SCU_INV_ALL_REG]
+
+	@ Trigger secondary CPU
+	ldr r3, =0x1FFFFFDC
+	adr r4, _start
+	str r4, [r3]
+
+	ldr r3, =(SCU_BASE_ADDR + 0x1F00)
+	ldr r4, =((2 << 16) | 1)
+	str r4, [r3]
 
 	@@@@@ Map Framebuffers @@@@@
 
@@ -126,5 +141,20 @@ wait_arm9:
 
 	@ Jump to the kernel!
 	bx lr
+
+smp_boot:
+	@ r0 is the current CPU ID
+	ldr r1, =SYNC_ADDR
+	add r1, r1, r0, lsl #2
+	mov r12, #0
+	str r12, [r1]
+
+wait_smpboot:
+	ldr r12, [r1]
+	cmp r12, #0
+	wfeeq
+	beq wait_smpboot
+
+	bx r12
 
 	.ltorg

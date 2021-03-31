@@ -5,7 +5,7 @@
 #define INITRD_ADDR      (0x20000000)
 #define MACHINE_NUMBER   (0xFFFFFFFF)
 #define ARM9LINUXFW_ADDR (0x08080000)
-#define SYNC_ADDR        (0x1FFFFFF8)
+#define SYNC_ADDR        (0x1FFFFFF0)
 
 #define LINUXIMAGE_FILENAME  "/zImage"
 #define DTB_FILENAME         "/nintendo3ds_ctr.dtb"
