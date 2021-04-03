@@ -1,9 +1,3 @@
-ifeq ($(strip $(DEVKITARM)),)
-$(error "Please set DEVKITARM in your environment. export DEVKITARM=<path to>devkitARM")
-endif
-
-include $(DEVKITARM)/base_tools
-
 TARGET		= firm_linux_loader
 ARM9_ELF	= arm9/firm_linux_loader_arm9.elf
 ARM11_ELF	= arm11/firm_linux_loader_arm11.elf
