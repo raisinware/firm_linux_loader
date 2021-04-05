@@ -58,6 +58,7 @@ _start:
 	@ Clear exclusive records
 	clrex
 
+smp_start:
 	@ Get the CPUID
 	@ Branch to secondary boot if its not CPU0
 	mrc p15, 0, r0, c0, c0, 5
@@ -84,9 +85,9 @@ wait_arm9:
 	ldr r1, =0xFF
 	str r1, [r0, #SCU_INV_ALL_REG]
 
-	@ Trigger secondary CPU
+	@ Trigger CPU1
 	ldr r3, =0x1FFFFFDC
-	adr r4, _start
+	adr r4, smp_start
 	str r4, [r3]
 
 	ldr r3, =(SCU_BASE_ADDR + 0x1F00)
