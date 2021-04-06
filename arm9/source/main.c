@@ -51,7 +51,7 @@ static int load_file(const char *filename, uint32_t addr)
 
 static bool is_ktr(void)
 {
-	return (*(int*)SOCINFO & 2) != 0;
+	return (*(short*)SOCINFO & 2) != 0;
 }
 
 int main(int argc, char *argv[])
