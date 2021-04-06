@@ -5,7 +5,6 @@
 #define INITRD_ADDR      (0x20000000)
 #define MACHINE_NUMBER   (0xFFFFFFFF)
 #define ARM9LINUXFW_ADDR (0x08080000)
-#define SOCINFO          (0x10140FFC)
 #define SYNC_ADDR        (0x1FFFFFF0)
 
 #define LINUXIMAGE_FILENAME  "linux/zImage"
