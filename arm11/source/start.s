@@ -85,6 +85,8 @@ wait_arm9:
 	ldr r1, =0xFF
 	str r1, [r0, #SCU_INV_ALL_REG]
 
+	bl enable_cores23
+
 	@ Trigger CPU1
 	ldr r3, =0x1FFFFFDC
 	adr r4, smp_start
