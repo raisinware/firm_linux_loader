@@ -3,7 +3,7 @@
 
 // Via: https://www.3dbrew.org/wiki/CONFIG11_Registers
 
-#define CFG11_SOCINFO	0x10140FFC
+#define CFG11_SOCINFO	(0x10140FFC)
 
 #ifndef __ASSEMBLY__
 

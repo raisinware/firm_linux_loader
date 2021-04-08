@@ -56,7 +56,7 @@ static inline void gic_set_prio(int id, int prio)
 
 static inline void gic_set_target(int id, int core)
 {
-	*(volatile int*)(GIC_DIST_TARGET + id) = core - 1;
+	*(volatile int*)(GIC_DIST_TARGET + id) = core + 1;
 }
 
 static inline void gic_enable_interrupt(int id)
