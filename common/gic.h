@@ -19,14 +19,50 @@
 #define GIC_DIST_PRI		(GIC_DIST_REGS_BASE + 0x400)
 #define GIC_DIST_TARGET		(GIC_DIST_REGS_BASE + 0x800)
 
+#define BIT(n) (1 << (n))
+
 #ifndef __ASSEMBLY__
 
-void gic_enable_control(void);
-void gic_disable_all(void);
-void gic_clear_interrupt(int id);
-void gic_set_prio(int id, int prio);
-void gic_set_target(int id, int core);
-void gic_enable_interrupt(int id);
+static inline void gic_enable_control(void) {
+	*(volatile int*)GIC_CPU_CTRL = 1;
+}
+
+static inline void gic_disable_all(void)
+{
+	volatile int *gic_enable_clear = (volatile int*)GIC_DIST_ENABLE_CLEAR;
+	gic_enable_clear[0] = -1;
+	gic_enable_clear[1] = -1;
+	gic_enable_clear[2] = -1;
+	gic_enable_clear[3] = -1;
+}
+
+static inline void gic_x_interrupt(volatile int* addr, int id)
+{
+	addr[0] = BIT(id);
+	addr[1] = BIT(id % 32);
+	addr[2] = BIT(id % 32);
+	addr[3] = BIT(id % 32);
+}
+
+static inline void gic_clear_interrupt(int id)
+{
+	gic_x_interrupt((volatile int*)GIC_DIST_PENDING_CLEAR, id);
+}
+
+static inline void gic_set_prio(int id, int prio)
+{
+	*(volatile int*)(GIC_DIST_PRI + id) = prio;
+}
+
+static inline void gic_set_target(int id, int core)
+{
+	*(volatile int*)(GIC_DIST_TARGET + id) = core - 1;
+}
+
+static inline void gic_enable_interrupt(int id)
+{
+	gic_x_interrupt((volatile int*)GIC_DIST_ENABLE_SET, id);
+}
 
 #endif
 #endif
