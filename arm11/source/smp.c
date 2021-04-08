@@ -50,6 +50,9 @@ static void upclock(void)
 
 static void set_socmode(void)
 {
+	if (!is_lgr())
+		return;
+
 	enable_irqs();
 	enable_fcram_l2();
 	wait_cycles(403);
