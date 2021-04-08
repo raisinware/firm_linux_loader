@@ -1,3 +1,4 @@
+#include "arm.h"
 #include "cache.h"
 #include "cfg11.h"
 #include "common.h"
@@ -104,10 +105,7 @@ int main(int argc, char *argv[])
 		 */
 		while (1) {
 			/* Enter wait-for-interrupt state */
-			__asm__(
-				"mov r0, #0\n\t"
-				"mcr p15, 0, r0, c7, c0, 4\n\t"
-			);
+			wfi();
 		}
 	}
 
