@@ -31,6 +31,9 @@ static void wait_cycles(unsigned short cycles)
 
 static void set_clock(short socmode)
 {
+	if (get_pdn_lgr_socmode() == socmode)
+		return;
+
 	set_pdn_lgr_socmode(socmode);
 
 	// Loop until the ACK bit is set.
