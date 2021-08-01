@@ -74,6 +74,16 @@ int main(int argc, char *argv[])
 		goto error;
 	}
 
+	if (FileExists(INITRAMFS_FILENAME)) {
+		if (!load_file(INITRAMFS_FILENAME, INITRAMFS_ADDR)) {
+			Debug("Failed to load " INITRAMFS_FILENAME);
+			goto error;
+		}
+	}
+	else {
+		Debug("Note: initramfs file not present (" INITRAMFS_FILENAME ")");
+	}
+
 	dtb_filename = is_lgr() ? KTR_DTB_FILENAME : CTR_DTB_FILENAME;
 	if (!load_file(dtb_filename, DTB_ADDR)) {
 		Debug("Failed to load %s", dtb_filename);
