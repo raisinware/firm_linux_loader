@@ -48,6 +48,14 @@ bool DebugCheckFreeSpace(size_t required)
     return true;
 }
 
+bool FileExists(const char* path)
+{
+	FILINFO fno;
+
+	return f_stat(path, &fno) == FR_OK;
+}
+
+
 bool FileOpen(const char* path)
 {
     unsigned flags = FA_READ | FA_WRITE | FA_OPEN_EXISTING;
