@@ -31,7 +31,9 @@ static void wait_cycles(unsigned short cycles)
 
 static void set_clock(short socmode)
 {
-	if (get_pdn_lgr_socmode() == socmode)
+	set_pdn_lgr_socmode(get_pdn_lgr_socmode());
+
+	if ((get_pdn_lgr_socmode() & 7) == socmode)
 		return;
 
 	set_pdn_lgr_socmode(socmode);
@@ -98,7 +100,7 @@ static void online_cores23(void)
 	scu_set_cpu_stat(scu_get_cpu_stat() & 0x0F);
 	downclock();
 	setup_overlays();
-	upclock();
+	// upclock();
 	gic_send_swi(2, 2);
 	gic_send_swi(3, 3);
 }
