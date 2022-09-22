@@ -7,7 +7,7 @@
 #define SYNC_ADDR        (0x1FFFFFF0)
 
 #define LINUXIMAGE_FILENAME  "linux/zImage"
-#define INITRAMFS_FILENAME   "linux/initramfs.cpio.xz"
+#define INITRAMFS_FILENAME   "linux/rootfs.cpio.xz"
 #define CTR_DTB_FILENAME     "linux/nintendo3ds_ctr.dtb"
 #define KTR_DTB_FILENAME     "linux/nintendo3ds_ktr.dtb"
 #define ARM9LINUXFW_FILENAME "linux/arm9linuxfw.bin"
