@@ -1,6 +1,6 @@
 # FIRM Linux Loader
 
-A bootloader for running Linux on the Nintendo 3DS family of devices. This version has been modified to look for a xz compressed initramfs. 
+A bootloader for running Linux on the Nintendo 3DS family of devices. This version has been modified to look for a xz compressed initramfs named `rootfs.cpio.xz`. 
 
 ## How to run this
 
